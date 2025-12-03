@@ -1,0 +1,89 @@
+-------------------------------------------------------------------------
+                            INTRODUCTION
+-------------------------------------------------------------------------
+This application have been based on a school project.
+-We have a common GUI(SokobanGUI.java, SokobanGrid.java, SokobanError.java)
+ -> However the all functioning of this App is MINE
+ -> Modified to convert into a .jar
+
+-This is my FIRST real project so I know there are a lot of drawbacks
+ -> Bad hierarchy of packages (code + resource)
+ -> Throw a different SokobanError not well add to methods
+ -> Use different JFrame for each window instead of clean the same one
+ -> Lack of parameters for song
+ -> Border not perfect on JFrame
+ -> use of paint() to info panel instead of changing the text
+ -> check the pickable Item w/ instance of is not a good idea
+ -> I think this list is not finish =)
+
+
+-------------------------------------------------------------------------
+                            SOKOBAN GAME
+-------------------------------------------------------------------------
+The aim of the game is to place the crate on a target no matter which one
+-> An home screen appear when you launch the program, you have 4s to choose a level(it's enough),
+   then it will close and start the level by it-self
+-> if you failed an action, you need to close the window(and it's considered 'lost')
+   there is no key available to redo or restart the level
+-> once the level finish you to restart the game to choose a new one (bc no methods to close the SokobanGUI)
+
+
+----------------------------------------
+               TILE
+----------------------------------------
+->Basic Tile:
+   -> Crate = can be push by player
+   -> Wall = block player
+   -> Target = player can walk on it/ place crate on it
+   -> Floor = player can walk on it
+->Supp Tile:
+   -> Hole = if player walk on it -> GAME OVER
+   -> RiskyFloor = player cane be walk on it once then it becomes a hole/push a box on it doesn't transform it into a hole
+   -> Shift = crate without aim/you can hide something under(key, coin)
+   -> Key = Item that can be picked up/use to unlock door
+   -> Door = act like Wall when it's locked/act like Floor when it's unlock
+   -> Coin = Item that can be picked up/not useful just to show that 2 Item can be picked up
+             without having the same effect
+
+
+----------------------------------------
+               FEATURES
+----------------------------------------
+-Song:
+   -> SoundTrack = used to play several song for the game
+->Screen:
+   -> EndFrame = show this window if player lost or quit the game
+   -> WinFrame = show this window if player win
+   -> LevelSelecter = used to select your level
+
+----------------------------------------
+               LEVEL
+----------------------------------------
+-> ZoneTest = the place where I do my tests, I left it accessible for you if you want
+             but you are not supposed to have access to it(access can be easily remove in LevelSelecter)
+-> Level n°1 = level easy from the statement
+-> Level n°2 = level with my tile add
+  -> solution n°2: the first key is under the grey box at the start, you have to begin with the up part
+                   to find the second key and finish the level
+
+----------------------------------------
+               CODE
+----------------------------------------
+-> Cast = when I cast a variable Tile as an Item due to the principle of polymorphism,
+         I check before that Tile has a property that require a cast so there can't be an error during the cast
+-> Image of Tile = the first image display is always the default image (from state = false)
+-> Direction = I know it's a classic Enum but it's necessary to use 'public static final int' for
+              each direction explanation in the file
+-> Thread = the only thread on which I make operation is the main to bc it is the only one currently running
+-> try/catch and throws = only constructors and the main have a try/catch and the methods just throw error
+
+----------------------------------------
+               NOTES
+----------------------------------------
+-> all the methods in the package tile have an access modifier = public. It's mandatory bc they are in other package.
+  If all the class were in the .main, you can use the access modifier = protected, but I think it lack visibility
+  with all those class in the .main
+
+-> I don't know if it's relevant but I find it quite convenient that if someone wants to implements a new Tile
+  he has just to create a new Class with the file path of the image that he wants, set a common property to all Tile
+  and ofc if he wants that new Tile changes its property in function its state

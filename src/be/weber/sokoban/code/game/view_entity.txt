@@ -1,0 +1,46 @@
+
+
+RunGame{
+    => laucnh different entity that should modify the "WORLD each"
+}
+
+entity implements Runnable{
+    name
+    tile
+    coord
+    map
+    gamegui
+    current_tile
+    previous_tile
+
+    ? key
+    ? coin
+
+    public push(){
+        evaluate()
+
+        progress()
+    }
+
+    public evaluate() {
+        => depeends on the entity
+    }
+
+    ????
+    public progress() {
+        => depeends on the entity
+    }
+
+
+    public run(){
+        this.move();
+    }
+ }
+
+player extends entity {
+    map_reset
+    crate_solved
+    num_crate
+    crate_done
+
+}

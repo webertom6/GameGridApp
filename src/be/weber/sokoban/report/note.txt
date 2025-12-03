@@ -1,0 +1,3 @@
+when reset, the image of player not display
+
+reset doesnt work when other enityt

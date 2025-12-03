@@ -1,0 +1,131 @@
+     -------------------------------------------------------------------------
+                              REPORT
+     -------------------------------------------------------------------------
+
+     1) Class Map could be more generic bc it depends on the Class Levels
+     (the Class Map could be compiled w/out Class Levels). I made this
+     choice to not have to build the Level in the same file, I found that
+     a bit Strange to have those big String in the same file.
+     => delete map.initLevel1() and use map.buildLevel(levels.getLevel1())
+          so you don't create a levels instance in Map but just pass a String
+          in the build.level
+
+     2) ALL Class File have been deleted bc cannot be possible in a .jar so
+     use of InputStream or URL. Modification have been done in SoundTrack,
+     LevelSelecter, EndFrame, WinFrame and, SokobanGrid. Normally, the rest
+     of the process haven't been modified i.e String for file_path
+
+     CrateSolved finally solve, you have to use tile.getNumImage() to use the
+     mechanism of several image but not possible if you use direct the int return by
+     loadImage()
+
+     3) All modifications make to the game
+     V = the features have been created
+     X = the features failed to be created
+     => = explanation
+
+     V -> Chose Sound or not
+          => on the Info Panel use a button to clip.stop() or slip.start() the sound (decrease the volume seems not possible)
+
+     V -> 4 different image depending on the direction chosen
+          -> done but still to find image of player w/ hands in front to push
+          => change the behavior of getNumImage in Player Tile and the load in Window
+
+     V -> Using the threads to load the level when the LevelSelecter is displaying the progress bar
+          => progress bar take always 2.5s but wait bar is finished before display level
+
+     V -> Still upset by CrateSolved
+          => change the state at the start, put the target under in the target_list, use tile.getNumImage()
+               instead of using the num direct given by the method .loadImage(file_path)
+
+     V -> replace the instanceof for pickable by equals(Tile.KEY) where Tile.KEY is public final int file_path.hashCode()
+          => .getImage().contains("coin"), easier and hashCode() return an int different for each Object from same Class
+
+     V -> use clone() to clone the map (clone() for tile also) and so have a reset button
+          => create a clone of the map at the start and clone each Tile to place them in a new coordMap[][]
+               you cannot clone target_list and crate_list bc the Tile in the coordMap and in the list must be the same
+               when you modified them. So the method is not really elegant but while the main behavior of the game does not
+               change it still be ok.
+          => new method in Window relaunch to restart the grid but all Tile have already an NumImage
+          => change the method for Item bc there are more things to clone
+
+     V -> Set a TextField on the LevelSelecter to choose your username before a game(set enable off after level choose)
+          take this username and give it to the Player, when the game is lost (Sorry Username) or win (Congrats username)
+          and this username can be use for the scoreboard
+          => userfield add and username store in Player Class
+
+     X -> load each different tile once and use this number for every tile with the same image
+          -> maybe inconvient to change large part of the code
+          => not tried bc it changed the main logic of the SokobanGrid which take Image with a Queue
+          -> loadImage every tile at beginning at store the int return in a public VAR like ENUM
+          -> give all correct tile the right int .WALL_IMAGE
+
+     X -> use serialization to make a scoreboard to store the score at the end of (better) game
+          => not possible to make serialiazation in a JAR bc a JAR is a read-only resources so
+               you cannot write sth in it
+
+     X -> Now the coordMap is a 2D array but possible to create a array (or 2D array) with all the maps inside and when a
+          level is finished, you go directly to the next level
+          -> Need new method Game2 and instead of System.exit(0) => Player.nextlevel()
+          -> All the level should have the same size
+          -> example of the code which could have been used for this
+               /**
+               * Player.java
+               *
+               * nextLevel(){
+               *     map.nextLevel();
+               * }
+               *
+               * Map.java
+               *
+               * private Tile[][][] world;
+               * private int curr_map
+               *
+               * nextLevel(){
+               *     world[curr_map+1];
+               * }
+               */
+          => change the complete behavior of the game but still be interesting for the future
+
+     V -> when you win/lose, if you pressed R, the game reset and the winning/losing frame is closed
+          => you have to REDUCE the winning/losing frame
+
+     !!!!!!!!!!
+     Reason why PC goes to WEWEEWEEEWEWE when game start 
+     -> while loop run in loop waiting to stop by input of the userfield
+     => try to do a method like .getEvent which wait an input and restart only. 
+        The wait comes fro the LinkedBlockingQueue which WAIT until it has an element in it to take 
+
+     Plan:
+          Merge all the GUI in one with different panel
+          use the getEvent to detect when sth have been add to queue
+          make Windows extends SokobanGUI instead of put one in it
+          Player class is actually the World class
+          ==> find a way to continue the thread of game in back so enemy could move while the player is waiting
+     !!!!!!!!!!
+
+
+
+     x -> change all the JFrame to JPanel and use a singe JFrame to display all the feature
+               -> intro: change all the big frame into a panel display the same way
+               -> game: add the sokoban grid to a panel w/ the max size
+               the info panel should stay the same in all case (in biggest config)
+               -> end/win: big panel with config already done
+               => maybe in V2
+
+     X -> the mute bouton on the intro panel set visble a slider to change volume
+          -> change also the soundtrack class bc awful
+
+     x -> have the sense that push delegation further 
+          -> ex: push a crate with another crate next, the crate should ask to futher crate(tile) if push can be done
+          -> PlayerTile extends Movable and ask the futher tile what can be done
+
+     X -> Add Portal
+          -> Portal can be added  by changing walk(dx,dy)/push(dx,dy) to teleport()
+          -> 2 set of coord in it
+          -> teleportable attribute, walkable
+          -> when walk on it, Direction.Teleport + Direction.UP/DOWN/LEFT/Right
+          -> getCorrd of other portal and put the Tile +1 further in direction
+
+     4) Notes
+     -> find the way that win/end frame extends JFrame a bit barbarian

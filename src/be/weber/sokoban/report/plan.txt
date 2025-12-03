@@ -1,0 +1,144 @@
+============
+    DONE
+============
+
+-Prepare 3 different panel with right separation
+==> GridBagLayout
+
+-Create JFrame with a muti layer panel and a method to switch between them
+==> cardLayout
+
+-Make the sokoban game sign resizable
+==> dedicated ResizableImage class
+
+-Make a Class JLabel or JPanel with text resizable
+=> win_panel done
+=> end_panel done
+
+-to call createImage()(so use init()), the class extends Canvas should be add
+to frame before
+
+-Make the JComboBox resizable
+==> chnage font size
+
+-slider to set the volume of music
+==> use ChangeListener
+
+-Make the sound check resizable
+=> Yes but duplicate image bc when the param panel is set not visible
+   the check take all the width
+   -> setVisible is like disspear and Opaque left the slider, find another thing
+=> is it possible to set invisible the classic icon
+=> maybe build my own checkBox but solve the "taking all width" problem first
+    -> no because annoying that we can't use a Listener on it bc fun to dev
+
+===> setIcon, setSelectedIcon with a void.png, just empty and draw with paintComponent()
+
+
+-add ItemListener to JComboBox to detect that made a choice
+=> add a default value to JComboBox bc the starting value is not considered as a change of state
+
+- we create Layered with all frame bu have to get the level vhosen but levelSelectPanle
+which doesnt exist before we add to layered frame which is not already create beacause
+wait for all frame before created
+=> setNPanel()
+
+
+-Resizable grid game Cell
+-> images are created and "print/paste" on the frame so they cant move, but if
+   we can do like the buttons of GridLayout (cfr calculator bro code) where the button
+   stretch depending on the space
+
+-> image is created with their original width and height 32 pixels
+-> can rescale that image with image.getScaledInstance(width, height, mode_of_resizing)
+-> image are placed in an array to be display later
+--> make a duplicate of this array with image resize, or a [][] array
+--> when the panel start to be too small, reprint all the image with another array of image
+    maybe 3 array (SMALL, MEDIUM, LARGE)
+-> problem on the initial size of panel, reduce to a little
+    => because of JPanel extend but with Canvas no reducing but it print normally
+       only on the space set by this.setSize(), and cut the rest of grid
+
+-> when grid doesn't take all space => scale up the grid
+-> when grid take all the place or more(JPanel is reduced to 10x10) => scale down grid
+
+-> try to put JLabel with GridLayout (resize like button) w/ ResizableImage
+    -> resize the Image but doesn't stick to others (space between) to stay together (a block)
+       maybe improvable
+
+====> Finally the user resize the window at his convenience then press "CTRL + 9" and the
+grid calculate the ratio of (the grid_display / grid_pixels) to set all the cells
+EXPL:
+->we don't directly launch() because paintComponent() need a few iteration for the width() and height() have
+been set correctly and so that we can compute the ratio => user launch() manually to be sure that the ratio have been computed
+1) level choose
+2) grid construct
+3) grid init()
+4) iterations of paintComponent() of GameGUI
+5) iteration that set the size
+
+-Load each type of cell only once and give the same image number to all similar cell.
+ -when creating GamePanel(map, String name_of_game)
+ -creating GameGUI inside GamePanel GameGUI(map, STRING name_of_game)
+ -> a method similar to launch() but only loadImage() of distinct_tile, then launch() by only looking in dict
+     -new method to load image number of all distinct Tile of the mpa
+        -> use .distinct()(see RunGame.java), is based on .equals() and .hashcode() of Tile
+           create .equals() and .hashcode() for Tile bc Java see every tile different if same Tile, different object
+     -HashMap<Integer, String> dict_tile_image to remember mapping, inside GameGrid
+     => ok but doesn't take in count the secondImage and the tile under
+
+-Change soundtrack management
+ -HashMap<String, Audio>
+================
+    TASKS
+================
+- Refont of Player class
+  - change the method to validDirection, too much redundant code
+    > KeyChoice -> Directions -> Actions
+      keyChoice are converted into Directions then Actions precise the action
+      => too much enum, not simple at all
+
+
+-IA + entity
+ - make class Entity for tile that can move
+ - Player extends Entity {} and contains the progress(), evaluate() = rule of game
+ - Creeper extend Entity {} move by BFS
+ > there is this.progress() inside of push() so generalize to all entity seems complicated
+   if remove this.progress() to generalize, cannot complete game
+   ?> if(flag_progress){this.progress()} to set up for each entity depending if can (barbarian)
+      and so asbstract void progress(); to rewrite for each entity and same for evaluate ?
+
+- Add Portal
+ - Portal can be added  by changing walk(dx,dy)/push(dx,dy) to teleport()
+ - 2 set of coord in it
+ - teleportable attribute, walkable
+ - when walk on it, Direction.Teleport + Direction.UP/DOWN/LEFT/Right
+ - getCorrd of other portal and put the Tile +1 further in direction
+
+
+-Adapt OOP
+instead of property boolean (isWalkable, isPushable)
+for each Tile, a method 
+`public boolean interact(Player p){
+    p.changeKey(+1)
+    p.move(UP)
+    p.state("die")
+
+    p.changeInventory("KEY", +1)
+ }
+`
+a scrath but a method for each sort Item, Plot, Collectable, ...
+maybe create a class Inventory (contains a HasMap)
+public boolean chnageInventory(String key, Integer value){
+    Object result = inventory.replace(key, value)
+    if(result != null)
+        return true
+}
+
+- put again the music with Soundtrack
+
+
+-ScoreBoard read after a file.txt
+=> dont forget jar is a read file not write
+
+
