@@ -30,11 +30,16 @@ public class RunGame {
 
         frame.setVisible(true);
 
-        int difficulty = frame.getEvent() - KeyChoice.DIFFICULTY_CHOSEN;
-        System.out.println("difficulty: "+difficulty);
+//        int difficulty = frame.getEvent() - KeyChoice.DIFFICULTY_CHOSEN;
+//        System.out.println("difficulty: "+difficulty);
 
-        int level = frame.getEvent() - KeyChoice.LEVEL_CHOSEN;
+        int level = 0;
+        do {
+            level = frame.getEvent();
+        } while (level < KeyChoice.LEVEL_CHOSEN || level > KeyChoice.DIFFICULTY_CHOSEN);
+        level = level - KeyChoice.LEVEL_CHOSEN;
         System.out.println("level: " + level);
+
 
         selecter.loadLevel(7);
 

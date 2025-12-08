@@ -87,7 +87,9 @@ public class Player extends Entity{
         this.lose = false;
         this.running = true;
 
-//        this.game.setTileUsed(player_tile, coord_start.getX(), coord_start.getY());
+        setReset(true);
+
+        this.game.setTileUsed(player_tile, coord_start.getX(), coord_start.getY());
 
         this.progress();
     }

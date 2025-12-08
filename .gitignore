@@ -1,7 +1,12 @@
 .idea/*
+.vscode/*
 out/*
 src/META-INF/*
 
 *.class
 
 *.iml
+*.mmd
+*.png
+*.uml
+*.svg

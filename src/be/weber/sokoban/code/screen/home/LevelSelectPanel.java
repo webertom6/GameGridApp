@@ -190,7 +190,7 @@ public class LevelSelectPanel extends LayerPanel implements ChangeListener, Item
         System.out.println("src"+e.getSource());
         System.out.println("id"+e.getID());
         if (e.getItemSelectable() instanceof JRadioButton r && e.getStateChange() == ItemEvent.SELECTED){
-            System.out.println(r.getText());
+            System.out.println("radiobutton" + r.getText());
 
             int c = 1;
 
@@ -211,6 +211,8 @@ public class LevelSelectPanel extends LayerPanel implements ChangeListener, Item
         }
 
         if (e.getItemSelectable() instanceof JComboBox<?> && e.getStateChange() == ItemEvent.SELECTED){
+
+            System.out.println("combox: "+ panel_select.getComboBox().getSelectedIndex());
             panel_choice.changeText("["+panel_select.getComboBox().getSelectedItem()+"]");
 
             try {

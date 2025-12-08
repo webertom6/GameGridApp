@@ -142,6 +142,8 @@ public class LayeredFrame extends JFrame implements WindowListener {
             action = 0;
         }
 
+        System.out.println("getevent: "+action);
+
         return action;
     }
 

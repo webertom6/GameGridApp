@@ -26,6 +26,8 @@ abstract public class Entity{
     protected Map map;
     protected GameBoard game;
 
+    protected static boolean reset;
+
 
     protected int step;
     protected Tile current_tile;
@@ -45,6 +47,7 @@ abstract public class Entity{
         this.step = 0;
         this.previous_tile = null;
 
+        reset = false;
 
         this.key = 0;
         this.coin = 0;
@@ -70,6 +73,14 @@ abstract public class Entity{
 
     public String getName(){
         return this.name;
+    }
+
+    public static boolean isReset() {
+        return reset;
+    }
+
+    public static void setReset(boolean reset_key) {
+        reset = reset_key;
     }
 
     public int getStep() {

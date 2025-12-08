@@ -54,7 +54,9 @@ public class GameInstance implements Runnable{
 
                 direction = frame.getEvent();
 
-                if (direction == KeyChoice.LAUNCH){
+                System.out.println("reset player" + Entity.isReset());
+
+                if (direction == KeyChoice.LAUNCH && !player.isRunning() && !player.isLose() && !player.isWin()){
 
                     double r_w = (double) game.getGrid().getWidth() / game.getGrid().getWPixels();
                     double r_h = (double) game.getGrid().getHeight() / game.getGrid().getHPixels();
@@ -166,6 +168,8 @@ public class GameInstance implements Runnable{
             boolean a = false;
 
             while (true) {
+
+                System.out.println("reset mob" + Entity.isReset());
 
 
                 if (i == 0)
