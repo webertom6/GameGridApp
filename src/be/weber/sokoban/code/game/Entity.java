@@ -1,12 +1,11 @@
 package be.weber.sokoban.code.game;
 
-import be.weber.sokoban.code.gui.GameBoard;
+import be.weber.sokoban.code.gui.GameGui;
 import be.weber.sokoban.code.gui.SokobanError;
 import be.weber.sokoban.code.tile.Coord;
 
 import java.io.IOException;
 
-import be.weber.sokoban.code.screen.KeyChoice;
 import be.weber.sokoban.code.tile.*;
 
 /*------------------------Inheritance----------------------------*
@@ -24,9 +23,11 @@ abstract public class Entity{
     private EntityTile entity_tile;
     protected Coord coord_start;
     protected Map map;
-    protected GameBoard game;
+    protected GameGui game;
 
     protected static boolean reset;
+    protected Map map_reset;
+
 
 
     protected int step;
@@ -57,13 +58,12 @@ abstract public class Entity{
     }
 
     /**
-     * Initiate the player to the game after the level has been launch
-     * @param entity_tile
+     * Initiate the entity to the game after the level has been launch
      * @param game
      * @throws SokobanError
      * @throws IOException
      */
-    public void init(GameBoard game)  throws SokobanError, IOException {
+    public void init(GameGui game)  throws SokobanError, IOException {
 
         this.coord_start = (Coord) entity_tile.getCoord().clone();
         this.map = game.getMap();

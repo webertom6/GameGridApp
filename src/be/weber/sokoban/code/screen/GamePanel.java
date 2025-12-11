@@ -2,7 +2,7 @@ package be.weber.sokoban.code.screen;
 
 import be.weber.sokoban.code.game.Map;
 import be.weber.sokoban.code.game.Player;
-import be.weber.sokoban.code.gui.GameBoard;
+import be.weber.sokoban.code.gui.GameGui;
 import be.weber.sokoban.code.gui.GameGrid;
 import be.weber.sokoban.code.gui.SokobanChrono;
 import be.weber.sokoban.code.gui.SokobanInfo;
@@ -16,7 +16,7 @@ public class GamePanel extends LayerPanel {
 
     private SokobanInfo panel_info;
     private SokobanChrono panel_chrono;
-    private GameBoard game_gui;
+    private GameGui game_gui;
 
     private boolean window_resized = false;
 
@@ -62,7 +62,7 @@ public class GamePanel extends LayerPanel {
         add(panel_chrono, constraints);
 
 
-        game_gui = new GameBoard(map);
+        game_gui = new GameGui(map);
         game_gui.setBackground(Color.BLUE);
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -90,7 +90,7 @@ public class GamePanel extends LayerPanel {
         return panel_chrono;
     }
 
-    public GameBoard getGui() {
+    public GameGui getGui() {
         return game_gui;
     }
 

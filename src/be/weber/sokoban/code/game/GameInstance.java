@@ -54,8 +54,6 @@ public class GameInstance implements Runnable{
 
                 direction = frame.getEvent();
 
-                System.out.println("reset player" + Entity.isReset());
-
                 if (direction == KeyChoice.LAUNCH && !player.isRunning() && !player.isLose() && !player.isWin()){
 
                     double r_w = (double) game.getGrid().getWidth() / game.getGrid().getWPixels();
@@ -111,6 +109,7 @@ public class GameInstance implements Runnable{
 
                     player.resetMap();
                     game.getPanelChrono().reset();
+                    Entity.setReset(false);
                 }
 
                 if (player.isRunning()) {
@@ -160,17 +159,12 @@ public class GameInstance implements Runnable{
             GamePanel game = ((GamePanel) frame.getNPanel("game"));
 
             int direction = KeyChoice.NOTHING;
-            
-            MobTile mob_tile = null;
 
             int i = 0;
 
             boolean a = false;
 
             while (true) {
-
-                System.out.println("reset mob" + Entity.isReset());
-
 
                 if (i == 0)
                     System.out.println("loop mob");
@@ -185,18 +179,15 @@ public class GameInstance implements Runnable{
                         a = true;
                     }
                     if (a){
+                        System.out.println("find path");
                         mob.findPath();
                         a = false;
                     }
-//                    System.out.println("direction mob " + direction);
-//                    System.out.println(mob_tile);
-//                    System.out.println(mob.isRunning());
+
                     Thread.sleep(750);
                 }
 
                 if (direction == KeyChoice.LAUNCH){
-
-//                    mob_tile = new MobTile(map.get);
 
                     mob.init(game.getGui());
 
@@ -205,6 +196,10 @@ public class GameInstance implements Runnable{
                                                 mob.getEntityTile().getCoord().getY());
 
                     mob.setRunning(true);
+                }
+
+                if (Entity.isReset()) {
+                    mob.reset();
                 }
 
                 if (mob.isRunning()) {

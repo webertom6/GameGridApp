@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * window that display the game
  */
-public class GameBoard extends JPanel {
+public class GameGui extends JPanel {
     private boolean first_launch;
 
     private final int HEIGHT;
@@ -25,7 +25,7 @@ public class GameBoard extends JPanel {
     private GameGrid grid;
     private boolean window_resized = false;
 
-    public GameBoard(Map map){
+    public GameGui(Map map){
         this.setLayout(new GridBagLayout());
 
         this.first_launch = false;

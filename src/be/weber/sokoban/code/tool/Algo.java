@@ -21,13 +21,20 @@ public class Algo {
 
         Tile[][] grid = new Tile[c_map.length][c_map[0].length];
 
+        // aberration to correct
         for (int i = 0; i < c_map.length; i++) {
             for (int j = 0; j < c_map[0].length; j++) {
-                System.out.print(Util.visualMap(c_map[i][j]));
                 grid[i][j] = c_map[j][i];
             }
-            System.out.println();
         }
+
+//        for (int i = 0; i < c_map.length; i++) {
+//            for (int j = 0; j < c_map[0].length; j++) {
+//                System.out.print(Util.visualMap(c_map[i][j]));
+//                grid[i][j] = c_map[j][i];
+//            }
+//            System.out.println();
+//        }
         for (int i = 0; i < c_map.length; i++) {
             for (int j = 0; j < c_map[0].length; j++) {
                 System.out.print(Util.visualMap(grid[i][j]));

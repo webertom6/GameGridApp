@@ -1,10 +1,11 @@
 package be.weber.sokoban.code.game;
 
-import be.weber.sokoban.code.gui.GameBoard;
+import be.weber.sokoban.code.gui.GameGui;
 import be.weber.sokoban.code.gui.SokobanError;
 import be.weber.sokoban.code.tile.*;
 import be.weber.sokoban.code.tile.entity.PlayerTile;
 import be.weber.sokoban.code.tile.plot.Target;
+import be.weber.sokoban.code.tool.Util;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 public class Player extends Entity{
 
     private PlayerTile player_tile;
-    private Map map_reset;
+//    private Map map_reset;
 
     private int crate_solved;
     private int num_crate;
@@ -42,7 +43,7 @@ public class Player extends Entity{
      * @throws SokobanError
      * @throws IOException
      */
-    public void init(GameBoard game)  throws SokobanError, IOException {
+    public void init(GameGui game)  throws SokobanError, IOException {
         super.init(game);
 
         this.map_reset = (Map) map.clone();
@@ -70,6 +71,8 @@ public class Player extends Entity{
      */
     public void resetMap() throws SokobanError {
 
+        setReset(true);
+
         player_tile.setCoord(this.coord_start);
         this.coord_start = (Coord) this.coord_start.clone();
         this.map = (Map) map_reset.clone();
@@ -87,11 +90,18 @@ public class Player extends Entity{
         this.lose = false;
         this.running = true;
 
-        setReset(true);
 
         this.game.setTileUsed(player_tile, coord_start.getX(), coord_start.getY());
 
         this.progress();
+
+        System.out.println("------ PLAYER MAP ----------");
+        for (int i = 0; i < map.getCoordMap().length; i++) {
+            for (int j = 0; j < map.getCoordMap()[0].length; j++) {
+                System.out.print(Util.visualMap(map.getCoordMap()[i][j]));
+            }
+            System.out.println();
+        }
     }
 
     /**
