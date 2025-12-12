@@ -160,16 +160,9 @@ public class GameInstance implements Runnable{
 
             int direction = KeyChoice.NOTHING;
 
-            int i = 0;
-
             boolean a = false;
 
             while (true) {
-
-                if (i == 0)
-                    System.out.println("loop mob");
-
-                i++;
 
                 if (game.getGui().isFirstLaunched()){
                     if (!mob.queue.isEmpty())

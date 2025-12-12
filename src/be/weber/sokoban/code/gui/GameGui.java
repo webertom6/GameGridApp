@@ -16,7 +16,7 @@ import java.util.Set;
  * window that display the game
  */
 public class GameGui extends JPanel {
-    private boolean first_launch;
+    private volatile boolean first_launch;
 
     private final int HEIGHT;
     private final int WIDTH;

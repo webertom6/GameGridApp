@@ -55,7 +55,7 @@ public class Mob extends Entity{
 
         this.progress();
 
-        System.out.println("------ PLAYER MAP ----------");
+        System.out.println("------ MOB MAP ----------");
         for (int i = 0; i < map.getCoordMap().length; i++) {
             for (int j = 0; j < map.getCoordMap()[0].length; j++) {
                 System.out.print(Util.visualMap(map.getCoordMap()[i][j]));
