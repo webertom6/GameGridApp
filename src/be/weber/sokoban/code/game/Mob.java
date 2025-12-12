@@ -38,7 +38,11 @@ public class Mob extends Entity{
     public void reset() throws SokobanError {
         mob_tile.setCoord(this.coord_start);
         this.coord_start = (Coord) this.coord_start.clone();
-        this.map = (Map) map_reset.clone();
+        // Get the fresh map from GameGui instead of using stale map_reset
+        // This ensures the mob uses the same map instance as the player after reset
+        this.map = this.game.getMap();
+        // Update the backup map for future resets
+        this.map_reset = (Map) this.map.clone();
 
         this.step = 0;
         this.current_tile = map.getTile(coord_start.getX(), coord_start.getY());

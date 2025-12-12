@@ -172,7 +172,6 @@ public class GameInstance implements Runnable{
                         a = true;
                     }
                     if (a){
-                        System.out.println("find path");
                         mob.findPath();
                         a = false;
                     }
