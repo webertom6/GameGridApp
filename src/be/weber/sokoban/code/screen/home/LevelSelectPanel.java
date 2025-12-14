@@ -50,7 +50,24 @@ public class LevelSelectPanel extends LayerPanel implements ChangeListener, Item
 
         this.soundtrack = soundtrack;
 
-        panel_score = new ResizableTextJPanel("-----------SCORE-BOARD-----------",6, false);
+        String str_player = "";
+
+        str_player += "Thunder_Eye" + "\t" +
+                      "00:11:80" + "\t" +
+                      138 + " steps <br> <br> \n";
+        str_player += "Kyurem2005" + "\t" +
+                      "00:03:84" + "\t" +
+                      34 + " steps <br> <br> \n";
+        str_player += "TOMEMMA" + "\t" +
+                      "00:05:52" + "\t" +
+                      63 + " steps <br> <br> \n";
+
+        String score = "<html> <br> " +
+                "------------ SCOREBOARD ------------ <br> <br>" +
+                str_player +
+                "</html>";
+
+        panel_score = new ResizableTextJPanel(score,1, true);
         panel_score.changeFont(Util.FONT_NAME_GAME, Font.BOLD);
         panel_score.changeForeground(Color.WHITE);
         panel_score.changeBackground(Color.BLACK);
@@ -185,7 +202,6 @@ public class LevelSelectPanel extends LayerPanel implements ChangeListener, Item
     public void itemStateChanged(ItemEvent e) {
 
         if (e.getItemSelectable() instanceof JRadioButton r && e.getStateChange() == ItemEvent.SELECTED){
-            System.out.println("radiobutton" + r.getText());
 
             int c = 1;
 
