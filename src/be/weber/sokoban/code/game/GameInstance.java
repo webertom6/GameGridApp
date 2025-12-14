@@ -59,38 +59,16 @@ public class GameInstance implements Runnable{
                     double r_w = (double) game.getGrid().getWidth() / game.getGrid().getWPixels();
                     double r_h = (double) game.getGrid().getHeight() / game.getGrid().getHPixels();
 
-                    System.out.println("ratio layer w: "+ r_w);
-                    System.out.println("ratio layer h: "+ r_h);
-
-//                    int fact = 100;
-//
-//                    r_w = Math.round(r_w * fact);
-//                    r_w = r_w / fact;
-//                    r_h = Math.round(r_h * fact);
-//                    r_h = r_h / fact;
-
-                    System.out.println("ratio layer w: "+ r_w);
-                    System.out.println("ratio layer h: "+ r_h);
-
                     game.getGrid().setRatioW(r_w);
                     game.getGrid().setRatioH(r_h);
 
+                    // load every distinct image's tile in the map and store them
                     game.getGui().loadImageMap();
 
-                    System.out.println("befire laucnh" + game.getGui().isFirstLaunched());
-
+                    // set tile on the game board gui initially (first_launched = true)
                     game.getGui().launch();
 
-                    System.out.println("after aunch" + game.getGui().isFirstLaunched());
-
-                    //System.out.println(game.getGrid().nbImages);
-
-//                    PlayerTile player_tile = new PlayerTile(map.getCoordEntity());
-
                     player.init(game.getGui());
-
-                    System.out.println(player.getPlayerTile());
-                    System.out.println(player.getEntityTile());
 
                     game.getGui().setTileEntity((EntityTile) player.getEntityTile(),
                                                 player.getEntityTile().getCoord().getX(),

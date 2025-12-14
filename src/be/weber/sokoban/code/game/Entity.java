@@ -272,12 +272,7 @@ abstract public class Entity{
 
         switch (action){
             case EXIT:
-                System.out.println("Game Stop");
                 System.exit(0);
-
-//            case KeyChoice.RESET:
-//
-//                break;
 
             case UP:
             case DOWN:

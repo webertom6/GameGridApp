@@ -94,14 +94,6 @@ public class Player extends Entity{
         this.game.setTileUsed(player_tile, coord_start.getX(), coord_start.getY());
 
         this.progress();
-
-        System.out.println("------ PLAYER MAP ----------");
-        for (int i = 0; i < map.getCoordMap().length; i++) {
-            for (int j = 0; j < map.getCoordMap()[0].length; j++) {
-                System.out.print(Util.visualMap(map.getCoordMap()[i][j]));
-            }
-            System.out.println();
-        }
     }
 
     /**

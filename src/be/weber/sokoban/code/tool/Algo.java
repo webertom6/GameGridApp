@@ -28,19 +28,6 @@ public class Algo {
             }
         }
 
-//        for (int i = 0; i < c_map.length; i++) {
-//            for (int j = 0; j < c_map[0].length; j++) {
-//                System.out.print(Util.visualMap(c_map[i][j]));
-//                grid[i][j] = c_map[j][i];
-//            }
-//            System.out.println();
-//        }
-        for (int i = 0; i < c_map.length; i++) {
-            for (int j = 0; j < c_map[0].length; j++) {
-                System.out.print(Util.visualMap(grid[i][j]));
-            }
-            System.out.println();
-        }
 
         // To maintain location visit status, init at false by default
         boolean[][] visited = new boolean[grid.length][grid[0].length];

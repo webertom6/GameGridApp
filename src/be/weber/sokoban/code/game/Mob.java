@@ -59,30 +59,13 @@ public class Mob extends Entity{
 
         this.progress();
 
-        System.out.println("------ MOB MAP ----------");
-        for (int i = 0; i < map.getCoordMap().length; i++) {
-            for (int j = 0; j < map.getCoordMap()[0].length; j++) {
-                System.out.print(Util.visualMap(map.getCoordMap()[i][j]));
-            }
-            System.out.println();
-        }
     }
 
     public void findPath(){
-        long startTime = System.nanoTime();
-// Call the method you want to time
+
         BFSItem bfs = Algo.APath(this.map, mob_tile.getCoord().getY(), mob_tile.getCoord().getX());
-        long endTime = System.nanoTime();
 
-// Calculate the duration in milliseconds
-        long duration = (endTime - startTime) / 1_000_000;
-        System.out.println("Execution time: " + duration + " milliseconds");
-
-//        queue = bfs.getPath();
         transferQueueContents(bfs.getPath(), queue);
-        for (Integer i: queue) {
-            System.out.print(Util.KeyString(i)+",");
-        }
     }
 
     @Override

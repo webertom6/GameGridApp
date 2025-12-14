@@ -142,8 +142,6 @@ public class LayeredFrame extends JFrame implements WindowListener {
             action = 0;
         }
 
-        System.out.println("getevent: "+action);
-
         return action;
     }
 
@@ -257,12 +255,10 @@ public class LayeredFrame extends JFrame implements WindowListener {
      * (User close the window by any way, so while running not in the code)
      */
     public void windowClosing(WindowEvent e) {
-        System.out.println("closing");
         this.dispose();
         TrayIcon[] array_icons = SystemTray.getSystemTray().getTrayIcons();
 
         for(int i = 0; i < array_icons.length; i++) {
-            System.out.println("remove icon tray");
             TrayIcon icon_i = array_icons[i];
             SystemTray.getSystemTray().remove(icon_i);
         }
