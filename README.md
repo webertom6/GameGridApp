@@ -1,4 +1,4 @@
-# 🎮 GameGridApp - Standard template for boarding game
+# 🎮 GameGridApp - Modulatory GUI template for board games
 
 A feature-rich Java implementation of the classic Sokoban puzzle game with advanced mechanics, mob AI, and custom level design. Design with the motivation of the structure of the code is compatible with other game. For example, you want to create a PACMAN game, change the *.png and rewrite the behavior of `Player.java` and it's done. Finally, the `.jar` contains all the game, no need installer just JRE.
 
