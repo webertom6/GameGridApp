@@ -40,7 +40,7 @@ public class GamePanel extends LayerPanel {
         panel_info.changeForeground(Color.WHITE);
         panel_info.changeFont(Util.FONT_NAME_GAME, Font.BOLD);
         panel_info.changeBackground(Color.BLACK);
-        panel_info.setBackground(Color.MAGENTA);
+        panel_info.setBackground(Color.BLACK);
         constraints.gridx = 1;
         constraints.gridy = 0;
         constraints.weighty = 0.67;
@@ -53,7 +53,7 @@ public class GamePanel extends LayerPanel {
         panel_chrono.changeForeground(Color.WHITE);
         panel_chrono.changeFont(Util.FONT_NAME_GAME, Font.BOLD);
         panel_chrono.changeBackground(Color.BLACK);
-        panel_chrono.setBackground(Color.GREEN);
+        panel_chrono.setBackground(Color.BLACK);
         constraints.gridx = 1;
         constraints.gridy = 1;
         constraints.weighty = 0.33;
@@ -63,7 +63,7 @@ public class GamePanel extends LayerPanel {
 
 
         game_gui = new GameGui(map);
-        game_gui.setBackground(Color.BLUE);
+        game_gui.setBackground(Color.BLACK);
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.weighty = 1.0;

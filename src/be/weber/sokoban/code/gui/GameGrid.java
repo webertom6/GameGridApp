@@ -57,7 +57,7 @@ public class GameGrid extends JPanel {
         this.workBuffer = this.createImage(this.wPixels, this.hPixels);
         this.imageArray = new Image[1000];
         this.nbImages = 0;
-        this.clearImage();
+        this.initImage();
         this.updateBuffer();
     }
 
@@ -66,19 +66,28 @@ public class GameGrid extends JPanel {
     }
 
     /**
-     * Put a rectangle of the size of the grid
+     * Put a rectangle of the size of the grid and instruction to start
      */
-    public void clearImage() {
+    public void initImage() {
         Graphics g = this.workBuffer.getGraphics();
         Graphics2D g2D = (Graphics2D) g;
-        g2D.setPaint(Color.MAGENTA);
+        g2D.setPaint(Color.BLACK);
         g2D.fillRect(0, 0, this.wPixels, this.hPixels);
 
-        g2D.setPaint(Color.BLACK);
+        g2D.setPaint(Color.WHITE);
         g2D.setFont(new Font(Util.FONT_NAME_GAME, Font.BOLD, 45));
         g2D.drawString("Press", 60, 50);
         g2D.drawString("CTRL + 9", 60, 100);
         g2D.drawString("to start", 60, 150);
+    }
+    /**
+     * Put a rectangle of the size of the grid and instruction to start
+     */
+    public void clearImage() {
+        Graphics g = this.workBuffer.getGraphics();
+        Graphics2D g2D = (Graphics2D) g;
+        g2D.setPaint(Color.BLACK);
+        g2D.fillRect(0, 0, this.wPixels, this.hPixels);
     }
 
     /**

@@ -38,7 +38,7 @@ public class ParamPanel extends JPanel implements ItemListener {
         add(param, constraints);
 
         check = new SoundCheck(this);
-        check.setBackground(Color.MAGENTA);
+        check.setBackground(Color.BLACK);
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.weighty = 1.0;

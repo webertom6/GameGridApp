@@ -61,6 +61,7 @@ public class GameInstance implements Runnable{
 
                     game.getGrid().setRatioW(r_w);
                     game.getGrid().setRatioH(r_h);
+                    game.getGrid().clearImage();
 
                     // load every distinct image's tile in the map and store them
                     game.getGui().loadImageMap();

@@ -23,12 +23,12 @@ public class TwoParam extends JPanel implements ChangeListener{
         setLayout(card_layout);
 
         normal = new JPanel();
-        normal.setBackground(Color.cyan);
+        normal.setBackground(Color.BLACK);
 
         add(normal, "normal");
 
         param = new JPanel(new GridBagLayout());
-        param.setBackground(Color.ORANGE);
+        param.setBackground(Color.BLACK);
 
         add(param, "param");
 
@@ -37,7 +37,7 @@ public class TwoParam extends JPanel implements ChangeListener{
         constraints.insets = new Insets(5, 5, 5, 5);
 
         slider = new Slider();
-        slider.setBackground(Color.RED);
+        slider.setBackground(Color.BLACK);
         slider.addChangeListener((ChangeListener) parent);
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -46,7 +46,7 @@ public class TwoParam extends JPanel implements ChangeListener{
         param.add(slider, constraints);
 
         button = new ChoicesButton(parent);
-        button.setBackground(Color.GREEN);
+        button.setBackground(Color.BLACK);
         constraints.gridx = 0;
         constraints.gridy = 1;
         constraints.weighty = 0.5;
