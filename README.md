@@ -10,6 +10,11 @@ A feature-rich Java implementation of the classic Sokoban puzzle game with advan
 
 
 
+https://github.com/user-attachments/assets/f1bf356d-7020-45c5-ba04-eb39c7c76237
+
+
+
+
 ## 📖 Project Origins
 
 This application originated as a **school project** but evolved into a comprehensive game engine. While the base GUI components were provided, it has been ENTIRELY remastered and, **all game logic, mechanics, and features are original implementations**.
