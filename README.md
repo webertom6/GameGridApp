@@ -136,7 +136,9 @@ be.weber.sokoban.code
 
 ### Object Relationships
 
-See [diagram.mmd](diagram.mmd) for detailed class relationships.
+See [diagram.mmd](./src/be/weber/sokoban/report/diagram.mmd) or [diagram.puml](./src/be/weber/sokoban/report/diagram.puml) for detailed class relationships.
+
+![diagram_relationships](./src/be/weber/sokoban/report/diagram_gamegridapp_puml.svg)
 
 **Key Design Patterns:**
 - **Abstract Factory** - Tile creation system
