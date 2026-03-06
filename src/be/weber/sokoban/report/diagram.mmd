@@ -1,0 +1,288 @@
+---
+config:
+  theme: base
+  layout: elk
+---
+classDiagram
+    %% =================== GAME PACKAGE ===================
+    class RunGame {
+        +main(args String[]) void
+    }
+    
+    class GameInstance {
+        -frame LayeredFrame
+        -entity Entity
+        -map Map
+        -soundtrack SoundTrack
+        -player_enable boolean
+        +run() void
+    }
+    
+    class Entity {
+        -name String
+        -entity_tile EntityTile
+        -coord_start Coord
+        -map Map
+        -game GameBoard
+        -step int
+        -current_tile Tile
+        -previous_tile Tile
+        -key int
+        -coin int
+        -win boolean
+        -lose boolean
+        -running boolean
+        +init(game GameBoard)*
+        +move(direction int)*
+        +evaluate(next_tile Tile)*
+        +progress()*
+    }
+    
+    class Player {
+        -player_tile PlayerTile
+        -map_reset Map
+        -crate_solved int
+        -num_crate int
+        -crate_done ArrayList
+        +init(game GameBoard)
+        +resetMap()
+        +getPlayerTile() Tile
+    }
+    
+    class Mob {
+        -mob_tile MobTile
+        +queue Queue
+        +findPath()
+    }
+    
+    class Map {
+        -height int
+        -width int
+        -coordMap Tile[][]
+        -set_distinct_tile Set
+        -target_list ArrayList
+        -crate_list ArrayList
+        -entity_list ArrayList
+        +buildLevel(level String)
+        +setEntity(name String, entity EntityTile)
+        +getTile(x int, y int) Tile
+        +translateTile(tile Tile, dx int, dy int)
+    }
+    
+    class Actions {
+        UP
+        DOWN
+        LEFT
+        RIGHT
+        STAND
+        EXIT
+    }
+    
+    class Levels
+    
+    class SoundTrack
+    
+    %% =================== GUI PACKAGE ===================
+    class GameBoard {
+        -HEIGHT int
+        -WIDTH int
+        -map Map
+        -grid GameGrid
+        +loadImageMap()
+        +launch()
+        +relaunch(map Map)
+        +setTile(tile Tile, x int, y int)
+        +setTileUsed(tile Tile, x int, y int)
+        +setTileEntity(entity EntityTile, x int, y int)
+    }
+    
+    class GameGrid
+    
+    class SokobanInfo
+    
+    class SokobanChrono
+    
+    class SokobanError
+    
+    %% =================== SCREEN PACKAGE ===================
+    class LayeredFrame
+    
+    class GamePanel {
+        -panel_info SokobanInfo
+        -panel_chrono SokobanChrono
+        -game_gui GameBoard
+        +changeInfo(player Player)
+    }
+    
+    class KeyChoice
+    
+    class LevelSelectPanel
+    
+    class WinPanel
+    
+    class EndPanel
+    
+    %% =================== TILE PACKAGE ===================
+    class Coord {
+        -x int
+        -y int
+        +translate(dx int, dy int)
+    }
+    
+    class Tile {
+        -coord Coord
+        -image_path String
+        -pushable boolean
+        -walkable boolean
+        -risky boolean
+        -mortal boolean
+        -collectable boolean
+        -lock boolean
+        +setUnder(tile Tile)*
+        +getUnderTile() Tile*
+    }
+    
+    class Plot {
+    }
+    
+    class Item {
+        -state boolean
+        -under_tile Tile
+        -image_state2_path String
+        +setState(state boolean)
+        +getState() boolean
+    }
+    
+    class EntityTile {
+        -file_path_up String
+        -file_path_down String
+        -file_path_left String
+        -file_path_right String
+        +setDirection(direction Actions)
+    }
+    
+    class PlayerTile
+    
+    class MobTile
+    
+    class Floor
+    
+    class Wall
+    
+    class Target
+    
+    class Hole
+    
+    class Crate
+    
+    class RiskyFloor
+    
+    class Key
+    
+    class Coin
+    
+    class Door
+    
+    class Shift
+    
+    class TileID {
+        FLOOR
+        HOLE
+        TARGET
+        WALL
+        COIN
+        CRATE
+        DOOR
+        KEY
+        RISKY
+        SHIFT
+        MOB
+        PLAYER
+    }
+    
+    %% =================== TOOL PACKAGE ===================
+    class Algo
+    
+    class BFSItem
+    
+    class Util
+    
+    class ListTile
+    
+    %% =================== RELATIONSHIPS ===================
+    
+    %% RunGame relationships
+    RunGame --> LayeredFrame : uses
+    RunGame --> LevelSelectPanel : creates
+    RunGame --> Map : creates
+    RunGame --> Player : creates
+    RunGame --> Mob : creates
+    RunGame --> GamePanel : creates
+    RunGame --> GameInstance : creates
+    RunGame --> SoundTrack : uses
+    
+    %% GameInstance relationships
+    GameInstance --> Entity : manages
+    GameInstance --> Map : uses
+    GameInstance --> SoundTrack : uses
+    GameInstance --> LayeredFrame : uses
+    GameInstance --|> Runnable : implements
+    
+    %% Entity inheritance and relationships
+    Player --|> Entity : extends
+    Player --> PlayerTile : uses
+    Mob --|> Entity : extends
+    Mob --> MobTile : uses
+    Mob ..> Algo : uses
+    Mob ..> BFSItem : uses
+    
+    %% Entity uses
+    Entity --> GameBoard : uses
+    Entity --> Map : uses
+    Entity --> EntityTile : uses
+    Entity --> Coord : uses
+    
+    %% Map relationships
+    Map --> Tile : contains
+    Map --> EntityTile : contains
+    Map --> Target : contains
+    Map --> Item : contains
+    Map --> Coord : uses
+    
+    %% GameBoard relationships
+    GameBoard --> Map : displays
+    GameBoard --> GameGrid : contains
+    GameBoard --> Tile : renders
+    
+    %% GamePanel relationships
+    GamePanel --> GameBoard : contains
+    GamePanel --> SokobanInfo : contains
+    GamePanel --> SokobanChrono : contains
+    GamePanel --> Player : displays
+    
+    %% Tile hierarchy
+    Plot --|> Tile : extends
+    Item --|> Tile : extends
+    EntityTile --|> Tile : extends
+    
+    %% Plot subclasses
+    Floor --|> Plot : extends
+    Wall --|> Plot : extends
+    Target --|> Plot : extends
+    Hole --|> Plot : extends
+    
+    %% Item subclasses
+    Crate --|> Item : extends
+    RiskyFloor --|> Item : extends
+    Key --|> Item : extends
+    Coin --|> Item : extends
+    Door --|> Item : extends
+    Shift --|> Item : extends
+    
+    %% EntityTile subclasses
+    PlayerTile --|> EntityTile : extends
+    MobTile --|> EntityTile : extends
+    
+    %% Utility relationships
+    KeyChoice --> Actions : uses
+    TileID --> Tile : identifies

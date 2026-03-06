@@ -1,0 +1,218 @@
+@startuml
+' PlantUML class diagram for GameGridApp (Sokoban)
+' Compatible with PlantUML4Idea plugin
+
+skinparam classAttributeIconSize 0
+hide empty methods
+hide empty members
+
+package "game" {
+  class RunGame {
+    +main(args : String[]) : void
+  }
+  class GameInstance implements Runnable {
+    -frame : LayeredFrame
+    -entity : Entity
+    -map : Map
+    -soundtrack : SoundTrack
+    -player_enable : boolean
+    +run() : void
+  }
+  abstract class Entity {
+    -name : String
+    -entity_tile : EntityTile
+    -coord_start : Coord
+    -map : Map
+    -game : GameBoard
+    -step : int
+    -current_tile : Tile
+    -previous_tile : Tile
+    -key : int
+    -coin : int
+    -win : boolean
+    -lose : boolean
+    -running : boolean
+    +init(game : GameBoard)
+    +move(direction : int)
+    {abstract} +evaluate(next_tile : Tile)
+    {abstract} +progress()
+  }
+  class Player {
+    -player_tile : PlayerTile
+    -map_reset : Map
+    -crate_solved : int
+    -num_crate : int
+    -crate_done : ArrayList<Integer>
+    +init(game : GameBoard)
+    +resetMap()
+    +getPlayerTile() : Tile
+  }
+  class Mob {
+    -mob_tile : MobTile
+    +queue : Queue<Integer>
+    +findPath()
+  }
+  class Map {
+    -height : int
+    -width : int
+    -coordMap : Tile[][]
+    -set_distinct_tile : Set<Tile>
+    -target_list : ArrayList<Target>
+    -crate_list : ArrayList<Item>
+    -entity_list : ArrayList<EntityTile>
+    +buildLevel(level : String)
+    +setEntity(name : String, entity : EntityTile)
+    +getTile(x : int, y : int) : Tile
+    +translateTile(tile : Tile, dx : int, dy : int)
+  }
+  enum Actions {
+    UP; DOWN; LEFT; RIGHT; STAND; EXIT
+  }
+  class Levels
+  class SoundTrack
+}
+
+package "gui" {
+  class GameBoard {
+    -HEIGHT : int
+    -WIDTH : int
+    -map : Map
+    -grid : GameGrid
+    +loadImageMap()
+    +launch()
+    +relaunch(map : Map)
+    +setTile(tile : Tile, x : int, y : int)
+    +setTileUsed(tile : Tile, x : int, y : int)
+    +setTileEntity(entity : EntityTile, x : int, y : int)
+  }
+  class GameGrid
+  class SokobanInfo
+  class SokobanChrono
+  class SokobanError
+}
+
+package "screen" {
+  class LayeredFrame
+  class GamePanel {
+    -panel_info : SokobanInfo
+    -panel_chrono : SokobanChrono
+    -game_gui : GameBoard
+    +changeInfo(player : Player)
+  }
+  class KeyChoice
+  class LevelSelectPanel
+  class WinPanel
+  class EndPanel
+}
+
+package "tile" {
+  class Coord {
+    -x : int
+    -y : int
+  }
+  abstract class Tile {
+    -coord : Coord
+    -image_path : String
+    -pushable : boolean
+    -walkable : boolean
+    -risky : boolean
+    -mortal : boolean
+    -collectable : boolean
+    -lock : boolean
+    +setUnder(tile : Tile)
+    +getUnderTile() : Tile
+  }
+  abstract class Plot
+  abstract class Item {
+    -state : boolean
+    -under_tile : Tile
+    -image_state2_path : String
+  }
+  abstract class EntityTile {
+    -file_path_up : String
+    -file_path_down : String
+    -file_path_left : String
+    -file_path_right : String
+    +setDirection(direction : Actions)
+  }
+  class PlayerTile
+  class MobTile
+  class Floor
+  class Wall
+  class Target
+  class Hole
+  class Crate
+  class RiskyFloor
+  class Key
+  class Coin
+  class Door
+  class Shift
+  enum TileID
+}
+
+package "tool" {
+  class Algo
+  class BFSItem
+  class Util
+  class ListTile
+}
+
+RunGame --> LayeredFrame
+RunGame --> LevelSelectPanel
+RunGame --> Map
+RunGame --> Player
+RunGame --> Mob
+RunGame --> GamePanel
+RunGame --> GameInstance
+RunGame --> SoundTrack
+
+GameInstance --> Entity
+GameInstance --> Map
+GameInstance --> SoundTrack
+GameInstance --> LayeredFrame
+GameInstance ..> GamePanel : uses
+
+Entity --> GameBoard
+Entity --> Map
+Entity --> EntityTile
+Entity --> Coord
+Player -|> Entity
+Player --> PlayerTile
+Mob -|> Entity
+Mob --> MobTile
+Mob ..> Algo : path-finding
+Mob ..> BFSItem
+
+Map --> Tile
+Map --> EntityTile
+Map --> Target
+Map --> Item
+Map --> Coord
+
+GameBoard --> Map
+GameBoard --> GameGrid
+GameBoard --> Tile
+GamePanel --> GameBoard
+GamePanel --> SokobanInfo
+GamePanel --> SokobanChrono
+GamePanel --> Player
+
+Tile <|-- Plot
+Tile <|-- Item
+Tile <|-- EntityTile
+Item <|-- Crate
+Item <|-- RiskyFloor
+Item <|-- Key
+Item <|-- Coin
+Item <|-- Door
+Item <|-- Shift
+EntityTile <|-- PlayerTile
+EntityTile <|-- MobTile
+Plot <|-- Floor
+Plot <|-- Wall
+Plot <|-- Hole
+Plot <|-- Target
+
+KeyChoice ..> Actions
+TileID ..> Tile
+@enduml
